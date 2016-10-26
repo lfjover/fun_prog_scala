@@ -18,14 +18,28 @@ object Main {
       else pascal(c-1, r-1) + pascal(c, r-1)
     }
 
-    println(pascal(0, 0))
-    println(pascal(1, 2))
-    println(pascal(2, 3))
-    println(pascal(2, 4))
+
   /**
    * Exercise 2
    */
-    def balance(chars: List[Char]): Boolean = ???
+    def balance(chars: List[Char]): Boolean = {
+
+
+      def isBalanced(parensList: List[Char], nLeft: Int): Boolean = {
+        if (parensList.isEmpty) {
+          if (nLeft == 0) true else false
+        }
+        else if (parensList.head == '(') isBalanced(parensList.tail, nLeft + 1)
+        else {                            // the element was a right parenteses
+          if (nLeft == 0) false           // there isn't a left parenteses to balance it out
+          else isBalanced(parensList.tail, nLeft - 1)
+        }
+      }
+
+      val parentesesList = for(elem <- chars; if (elem=='('|elem==')')) yield elem
+
+      isBalanced(parentesesList, 0)
+    }
   
   /**
    * Exercise 3
