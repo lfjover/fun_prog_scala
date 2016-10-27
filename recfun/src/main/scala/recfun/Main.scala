@@ -18,7 +18,6 @@ object Main {
       else pascal(c-1, r-1) + pascal(c, r-1)
     }
 
-
   /**
    * Exercise 2
    */
@@ -30,19 +29,28 @@ object Main {
           if (nLeft == 0) true else false
         }
         else if (parensList.head == '(') isBalanced(parensList.tail, nLeft + 1)
-        else {                            // the element was a right parenteses
-          if (nLeft == 0) false           // there isn't a left parenteses to balance it out
+        else {                            // the element was a right parentheses
+          if (nLeft == 0) false           // there isn't a left parentheses to balance it out
           else isBalanced(parensList.tail, nLeft - 1)
         }
       }
 
-      val parentesesList = for(elem <- chars; if (elem=='('|elem==')')) yield elem
+      val parenthesesList = for(elem <- chars; if (elem=='('|elem==')')) yield elem
 
-      isBalanced(parentesesList, 0)
+      isBalanced(parenthesesList, 0)
     }
   
   /**
    * Exercise 3
    */
-    def countChange(money: Int, coins: List[Int]): Int = ???
+    def countChange(money: Int, coins: List[Int]): Int = {
+      if (money == 0) 0
+      else if (coins.isEmpty) 0
+      else {
+        val n = (0 to money/coins(0)).toList
+        if (money%coins(0) == 0) 1 + n.map(x => countChange(money - x*coins(0), coins.tail)).sum
+        else n.map(x => countChange(money - x*coins(0), coins.tail)).sum
+      }
+
+    }
   }
