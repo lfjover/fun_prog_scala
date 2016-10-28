@@ -102,13 +102,36 @@ class FunSetSuite extends FunSuite {
   }
 
   test("union contains all elements of each set") {
-    new TestSets {
-      val s = union(s1, s2)
-      assert(contains(s, 1), "Union 1")
-      assert(contains(s, 2), "Union 2")
-      assert(!contains(s, 3), "Union 3")
-    }
+
+      //assert(s(1), "Union 1")
+      //assert(s(2), "Union 2")
+
+      assert( List(1,2,3,4,5,7).map(y => union(x=> x<3 & x>=1, x=> x>=2 & x<=4) (y))== List(true, true, true, true, false, false))
+
+      //assert(!contains(s, 3), "Union 3")
+
+
   }
 
+  test("intersection contains the right elements") {
+
+      assert( List(1,2,3,4,5,7).map(y => intersect(x=> x<7 & x>1, x=> x<4 ) (y))== List(false, true, true, false, false, false))
+      assert( List(9,2,3,4,5,7).map(y => intersect(x=> x<3 & x>=1, x=> x>=2 & x<=4) (y))== List(false, true, false, false, false, false))
+
+  }
+
+  test("filter contains the right elements") {
+
+    assert( filter(x=> x<10, y=> y%2==0)(3)== true)
+    assert( filter(x=> x<10, y=> y%2==0)(8)== true)
+    assert( filter(x=> x<10, y=> y%2==0)(3)== false)
+    assert(List(1,2,3).map( y => filter(x=> x<10, x=> x%2==0)(y))==List(false, true, false))
+
+  }
+  //test("map to elements") {
+
+    //List(1, 4, 16, 2).map(y => my_maps(x => x >= 1 & x <= 10 , x => x * x)(y)) == List(true, true, true, false)
+    //def my_map(s:Set, f:Int=>Int): Boolean =
+  //}
 
 }
