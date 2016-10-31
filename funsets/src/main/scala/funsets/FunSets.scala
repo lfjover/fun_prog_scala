@@ -16,10 +16,7 @@ object FunSets {
    */
   def contains(s: Set, elem: Int): Boolean = s(elem)
 
-  /**
-   * Returns the set of the one given element.
-   */
-    def singletonSet(elem: Int): Set = x => x==elem
+
   
 
   /**
@@ -72,6 +69,10 @@ object FunSets {
 
     }
 
+  /**
+    * Returns the set of the one given element.
+    */
+  def singletonSet(elem: Int): Set = x => x==elem
 
   /**
     * Returns the subset of `s` for which `p` holds.
@@ -82,9 +83,17 @@ object FunSets {
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
    */
-    def my_map(s: Set, f: Int => Int): Set = {
-      val valid_range = filter(s, x=> x<= 1000 & x>= -1000 )
-      forall
+    def my_map(s: Set, f: Int => Int): Set =
+    x => 
+    {
+      //def valid_range(x: Int): Boolean = {(x<= 1000) & (x>= -1000 )}
+      //val filtered = filter(s, valid_range)
+      def iter(a: Int): Set = {
+        if(contains(s,a)) f(a)
+
+      }
+      iter(bound)
+
 
     }
   
